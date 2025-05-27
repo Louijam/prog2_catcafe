@@ -52,8 +52,9 @@ public class CatCafe {
      * @return cat within the weight limits
      */
     public Optional<FelineOverLord> getCatByWeight(int minWeight, int maxWeight) {
-        if (minWeight < 0) throw new IllegalArgumentException("minWeight must be greater than zero");
-        if (maxWeight < minWeight) throw new IllegalArgumentException("maxWeight must be >= minWeight");
+        if (minWeight < 0 || maxWeight < minWeight) {
+            return Optional.empty();
+        }
 
 
         return clowder.stream()
