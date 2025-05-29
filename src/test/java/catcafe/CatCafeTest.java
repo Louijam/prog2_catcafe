@@ -52,9 +52,7 @@ public class CatCafeTest {
     // Testet, ob die Methode getCatByName bei null-Argument korrekt reagiert (kein Ergebnis)
     @Test
     public void testGetCatByNameNullArgument() {
-        assertThrows(NullPointerException.class, () -> {
-            cafe.getCatByName(null);
-        }); // Soll kein Ergebnis zurückgeben
+        assertThrows(NullPointerException.class, () -> cafe.getCatByName(null)); // Soll kein Ergebnis zurückgeben
     }
 
     // Testet Suche nach Katze anhand ihres Gewichts im angegebenen Bereich
@@ -83,8 +81,8 @@ public class CatCafeTest {
     // Testet, ob ungültige Gewichtsspannen korrekt behandelt werden (kein Ergebnis)
     @Test
     public void testGetCatByWeightInvalidRange() {
-        assertThrows(IllegalArgumentException.class, () -> {cafe.getCatByWeight(-1, 3);});
-        assertThrows(IllegalArgumentException.class, () -> {cafe.getCatByWeight(3, 2);});
+        assertThrows(IllegalArgumentException.class, () -> cafe.getCatByWeight(-1, 3));
+        assertThrows(IllegalArgumentException.class, () -> cafe.getCatByWeight(3, 2));
     }
 
     // Testet, ob das Hinzufügen von null als Katze eine NullPointerException wirft
