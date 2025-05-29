@@ -25,7 +25,7 @@ public class CatCafeTest {
         cafe.addCat(new FelineOverLord("Felix", 4));
         assertEquals(1, cafe.getCatCount()); // Nach dem Hinzufügen 1 Katze
 
-        cafe.addCat(new FelineOverLord("Miezi", 3));
+        cafe.addCat(new FelineOverLord("Garfield", 3));
         assertEquals(2, cafe.getCatCount()); // Nach dem zweiten Hinzufügen 2 Katzen
     }
 
@@ -45,7 +45,7 @@ public class CatCafeTest {
     public void testGetCatByNameNotFound() {
         cafe.addCat(new FelineOverLord("Jerry", 2)); // Nur "Jerry" hinzugefügt
 
-        Optional<FelineOverLord> result = cafe.getCatByName("Spike"); // Suche nach "Spike"
+        Optional<FelineOverLord> result = cafe.getCatByName("Flecki"); // Suche nach "Spike"
         assertFalse(result.isPresent()); // Sollte nicht gefunden werden
     }
 
@@ -58,8 +58,8 @@ public class CatCafeTest {
     // Testet Suche nach Katze anhand ihres Gewichts im angegebenen Bereich
     @Test
     public void testGetCatByWeightFound() {
-        FelineOverLord cat1 = new FelineOverLord("Whiskers", 3);
-        FelineOverLord cat2 = new FelineOverLord("Snowball", 5);
+        FelineOverLord cat1 = new FelineOverLord("Whisky", 3);
+        FelineOverLord cat2 = new FelineOverLord("Snowflake", 5);
         cafe.addCat(cat1);
         cafe.addCat(cat2);
 
@@ -75,7 +75,7 @@ public class CatCafeTest {
         cafe.addCat(new FelineOverLord("Shadow", 6)); // Nur Katze mit Gewicht 6
 
         Optional<FelineOverLord> result = cafe.getCatByWeight(1, 3); // Suche Bereich 1-3
-        assertFalse(result.isPresent()); // Keine passende Katze -> kein Ergebnis
+        assertFalse(result.isPresent()); // Keine passende Katze → kein Ergebnis
     }
 
     // Testet, ob ungültige Gewichtsspannen korrekt behandelt werden (kein Ergebnis)
@@ -94,12 +94,12 @@ public class CatCafeTest {
     // Testet Verhalten, wenn mehrere Katzen mit demselben Namen vorhanden sind
     @Test
     public void testMultipleCatsSameName() {
-        FelineOverLord cat1 = new FelineOverLord("Felix", 4);
-        FelineOverLord cat2 = new FelineOverLord("Felix", 5);
+        FelineOverLord cat1 = new FelineOverLord("Garfield", 4);
+        FelineOverLord cat2 = new FelineOverLord("Garfield", 5);
         cafe.addCat(cat1);
         cafe.addCat(cat2);
 
-        Optional<FelineOverLord> result = cafe.getCatByName("Felix");
+        Optional<FelineOverLord> result = cafe.getCatByName("Garfield");
         assertTrue(result.isPresent());
         // Erwartet wird, dass die erste hinzugefügte Katze gefunden wird
         assertEquals(cat1, result.get());
@@ -109,7 +109,7 @@ public class CatCafeTest {
     @Test
     public void testCatCountAfterMultipleAdds() {
         for (int i = 0; i < 10; i++) {
-            cafe.addCat(new FelineOverLord("Cat" + i, i));
+            cafe.addCat(new FelineOverLord("Katze_" + i, i));
         }
         assertEquals(10, cafe.getCatCount()); // 10 Katzen sollten im Cafe sein
     }
