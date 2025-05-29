@@ -1,25 +1,25 @@
 package tree;
 
 /**
- * Interface to implement the visitor pattern for a binary search tree.
+ * Interface für das Visitor-Pattern bei binären Suchbäumen.
  *
- * @param <T> parametric type of the binary search tree elements
+ * @param <T> Typ der Baum-Elemente (muss Comparable sein)
  */
 public interface TreeVisitor<T extends Comparable<T>> {
 
     /**
-     * Visit an empty node.
+     * Besuch eines leeren Knotens.
      *
-     * @param node to visit
-     * @return the result of visiting the node (recursively)
+     * @param node zu besuchender leerer Knoten
+     * @return Ergebnis des Besuchs (rekursiv)
      */
     String visit(Empty<T> node);
 
     /**
-     * Visit a node.
+     * Besuch eines normalen Knotens.
      *
-     * @param node to visit
-     * @return the result of visiting the node (recursively)
+     * @param node zu besuchender Knoten
+     * @return Ergebnis des Besuchs (rekursiv)
      */
     String visit(Node<T> node);
 }

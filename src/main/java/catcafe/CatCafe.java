@@ -8,70 +8,79 @@ import tree.TreeVisitor;
 
 import java.util.Optional;
 
-/** A cat café takes care of a number of cats. */
+/**
+ * Ein CatCafe verwaltet eine Sammlung von Katzen (FelineOverLord).
+ * Die Datenstruktur dahinter ist ein Baum (Tree).
+ */
 public class CatCafe {
+    // Die Menge aller Katzen wird in einem Baum gespeichert. Initial ist dieser leer.
     private Tree<FelineOverLord> clowder = new Empty<>();
 
     /**
-     * Add a new cat to the cat café.
+     * Fügt eine neue Katze zum CatCafe hinzu.
      *
-     * @param cat cat to be added
+     * @param cat die hinzuzufügende Katze
      */
     public void addCat(FelineOverLord cat) {
+        // Null-Prüfung und Einfügen der Katze in den Baum
         clowder = clowder.addData(requireNonNull(cat));
     }
 
     /**
-     * Count the number of cats in the cat café.
+     * Gibt die Anzahl der Katzen im CatCafe zurück.
      *
-     * @return number of cats in the café
+     * @return Anzahl der Katzen
      */
     public long getCatCount() {
+        // Die Größe des Baums entspricht der Anzahl der Katzen
         return clowder.size();
     }
 
     /**
-     * Pick up the first cat in the café with a given name.
+     * Sucht die erste Katze mit einem bestimmten Namen.
      *
-     * @param name name of the cat
-     * @return cat with the given name
+     * @param name Name der gesuchten Katze
+     * @return Optional mit Katze, falls gefunden
      */
     public Optional<FelineOverLord> getCatByName(String name) {
-        if (name == null) throw new NullPointerException("Keine Name eingegeben" );
+        // Null-Prüfung für den Namen
+        if (name == null) throw new NullPointerException("Keine Name eingegeben");
 
+        // Durchsuche den Baum nach der ersten Katze mit passendem Namen
         return clowder.stream()
-            .filter(c-> c.name().equals(name))
+            .filter(c -> c.name().equals(name))
             .findFirst();
     }
 
     /**
-     * Pick up the first cat in the café with a weight within the specified limits.
+     * Sucht die erste Katze mit einem Gewicht im angegebenen Bereich.
      *
-     * @param minWeight lower weight limit (inclusive)
-     * @param maxWeight upper weight limit (exclusive)
-     * @return cat within the weight limits
+     * @param minWeight untere Gewichtsgrenze (inklusive)
+     * @param maxWeight obere Gewichtsgrenze (exklusiv)
+     * @return Optional mit Katze, falls gefunden
      */
     public Optional<FelineOverLord> getCatByWeight(int minWeight, int maxWeight) {
+        // Plausibilitätsprüfung für die Gewichtsgrenzen
         if (minWeight < 0) throw new IllegalArgumentException("minWeight muss größer als 0 sein");
         if (maxWeight < minWeight) throw new IllegalArgumentException("maxWeight darf nicht kleiner als minWeight sein");
 
-
+        // Durchsuche den Baum nach der ersten Katze im gegebenen Gewichtsbereich
         return clowder.stream()
-            .filter(c -> c.weight()>=minWeight && c.weight()<maxWeight)
+            .filter(c -> c.weight() >= minWeight && c.weight() < maxWeight)
             .findFirst();
     }
 
     /**
-     * Accept a visitor to this cat café.
+     * Wendet einen Visitor auf das CatCafe an.
      *
-     * <p>The visitor needs to do all the heavy lifting, i.e. it needs to implement not only how to
-     * process the node's data but also how to traverse the children of this node/leaf.
+     * Der Visitor ist für die gesamte Traversierung des Baums verantwortlich.
      *
-     * @param visitor The visitor, which will work on this node (must not be {@code null})
-     * @return a string representation as result of the traversal process
-     * @throws NullPointerException if visitor is {@code null}
+     * @param visitor Visitor, der auf die Struktur angewendet wird (darf nicht null sein)
+     * @return Ergebnis der Traversierung als String
+     * @throws NullPointerException falls visitor null ist
      */
     String accept(TreeVisitor<FelineOverLord> visitor) {
+        // Delegiert die Traversierung an die Tree-Struktur
         return clowder.accept(visitor);
     }
 }

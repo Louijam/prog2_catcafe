@@ -4,82 +4,81 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
- * Interface of a sorted binary search tree.
+ * Interface eines sortierten binären Suchbaums.
  *
- * @param <T> parametric type of the node data
+ * @param <T> Typ der Knotendaten (muss Comparable sein)
  */
 public interface Tree<T extends Comparable<T>> extends Iterable<T> {
     /**
-     * Add new data to the sorted tree.
+     * Fügt neue Daten in den sortierten Baum ein.
      *
-     * <p>The new object will be inserted as new leaf into the correct position in the tree. Adding
-     * an already stored object does not change the tree.
+     * <p>Das neue Objekt wird als neues Blatt an der richtigen Position eingefügt. Wenn das Objekt
+     * bereits im Baum enthalten ist, ändert sich der Baum nicht.
      *
-     * @param data Object to be inserted (must not be {@code null})
-     * @return the new root node
-     * @throws NullPointerException if data is {@code null}
+     * @param data einzufügendes Objekt (darf nicht null sein)
+     * @return neue Wurzel des Baums
+     * @throws NullPointerException wenn data null ist
      */
     Tree<T> addData(T data);
 
     /**
-     * Access the stored data in the top-level node of this tree.
+     * Liefert die Daten des aktuellen Knotens.
      *
-     * @return data stored
+     * @return gespeicherte Daten
      */
     default T data() {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Return a copy of the leftChild child node of this node.
+     * Liefert den linken Kindknoten.
      *
-     * @return leftChild child node of this node
+     * @return linker Kindknoten
      */
     default Tree<T> leftChild() {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Return a copy of the rightChild child node of this node.
+     * Liefert den rechten Kindknoten.
      *
-     * @return rightChild child node of this node
+     * @return rechter Kindknoten
      */
     default Tree<T> rightChild() {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Is this an empty node?
+     * Prüft, ob dieser Knoten leer ist.
      *
-     * @return {@code true} iff not empty, {@code false} otherwise
+     * @return true wenn leer, sonst false
      */
     boolean isEmpty();
 
     /**
-     * How many non-empty nodes are stored in this tree?
+     * Anzahl der Nicht-Leer-Knoten im Baum.
      *
-     * @return number of {@link Node} elements
+     * @return Anzahl der Node-Elemente
      */
     default long size() {
         return stream().count();
     }
 
     /**
-     * Accept a visitor to this tree.
+     * Akzeptiert einen Visitor für diesen Baum.
      *
-     * <p>The visitor needs to do all the heavy lifting, i.e. it needs to implement not only how to
-     * process the node's data but also how to traverse the children of this node/leaf.
+     * <p>Der Visitor implementiert nicht nur die Verarbeitung der Daten, sondern auch die Traversierung.
      *
-     * @param visitor The visitor, which will work on this node (must not be {@code null})
-     * @return a string representation as result of the traversal process
-     * @throws NullPointerException if visitor is {@code null}
+     * @param visitor Visitor (darf nicht null sein)
+     * @return String-Ergebnis der Traversierung
+     * @throws NullPointerException wenn visitor null ist
      */
     String accept(TreeVisitor<T> visitor);
 
     /**
-     * Create a stream to traverse the tree in depth-first order.
+     * Erstellt einen Stream zur Traversierung des Baums in Tiefensuche.
      *
-     * @return stream of node data objects
+     * @return Stream der Knotendaten
      */
     default Stream<T> stream() {
         return StreamSupport.stream(spliterator(), false);
